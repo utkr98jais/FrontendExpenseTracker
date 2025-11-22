@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Vite cache
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.DS_Store
+.idea/
+# Uncomment if you don't want to commit workspace settings
+# .vscode/
+
+# ESLint cache
+.eslintcache
+
+# Optional: lock files (usually KEEP these committed, so commented out)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Misc
+*.tgz

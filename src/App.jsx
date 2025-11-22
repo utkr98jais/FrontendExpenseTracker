@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -25,11 +24,10 @@ const App = () => {
       <Router basename="/FrontendExpenseTracker">
         <Routes>
           <Route path="/" element={<Root />} />
-          <Route path="/login" exact element={<Login />} />
-          <Route path="/signup" exact element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route
             path="/dashboard"
-            exact
             element={
               <ProtectedRoute>
                 <ExpenseDashboard />
@@ -38,7 +36,6 @@ const App = () => {
           />
           <Route
             path="/income"
-            exact
             element={
               <ProtectedRoute>
                 <Income />
@@ -47,7 +44,6 @@ const App = () => {
           />
           <Route
             path="/expense"
-            exact
             element={
               <ProtectedRoute>
                 <Expense />

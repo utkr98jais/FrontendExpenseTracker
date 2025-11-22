@@ -93,12 +93,13 @@ If you migrate from GitHub Pages to Vercel/Netlify root domain:
 
 ## Troubleshooting
 
-| Problem                    | Cause                 | Fix                                                                             |
-| -------------------------- | --------------------- | ------------------------------------------------------------------------------- |
-| CSS/JS 404 on GitHub Pages | Missing base path     | Ensure `base` matches repository name.                                          |
-| Blank page after routing   | No redirect handling  | Add `_redirects` (Netlify) or use HashRouter / 404.html (GH Pages).             |
-| Old bundle served          | Browser cache         | Invalidate by bumping build or enabling versioning (content hash already used). |
-| Action fails at build      | Node version mismatch | Use Node 18+ or 20 in workflow.                                                 |
+| Problem                       | Cause                              | Fix                                                                             |
+| ----------------------------- | ---------------------------------- | ------------------------------------------------------------------------------- |
+| CSS/JS 404 on GitHub Pages    | Missing base path                  | Ensure `base` matches repository name.                                          |
+| Blank page after routing      | No redirect handling               | Add `_redirects` (Netlify) or use HashRouter / 404.html (GH Pages).             |
+| Old bundle served             | Browser cache                      | Invalidate by bumping build or enabling versioning (content hash already used). |
+| Action fails at build         | Node version mismatch              | Use Node 18+ or 20 in workflow.                                                 |
+| Deploy job 404 (deploy-pages) | Pages not enabled / wrong settings | Go to Settings > Pages, set Source to GitHub Actions once. Re-run workflow.     |
 
 ---
 

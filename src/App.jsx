@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
 const App = () => {
   return (
     <div>
-      <Router>
+      <Router basename="/FrontendExpenseTracker">
         <Routes>
           <Route path="/" element={<Root />} />
           <Route path="/login" exact element={<Login />} />

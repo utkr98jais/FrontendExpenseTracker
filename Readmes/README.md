@@ -203,10 +203,10 @@ const [categories, setCategories] = useState([
 When you have a backend API:
 
 1. **Read**: `BACKEND_INTEGRATION.md`
-2. **Copy**: `ExpenseContext.backend.example.jsx`
-3. **Replace**: Current `ExpenseContext.jsx`
-4. **Configure**: API endpoints in `.env`
-5. **Test**: CRUD operations
+2. Adapt the existing `ExpenseContext.jsx` (previous template file removed to reduce clutter; guide includes equivalent patterns).
+3. Configure API endpoints in `.env` (e.g. `VITE_API_BASE_URL`).
+4. Replace local in-memory operations with API calls.
+5. Test CRUD operations.
 
 Required API endpoints:
 

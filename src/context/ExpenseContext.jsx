@@ -1,5 +1,5 @@
 import React, { createContext, useState, useCallback, useEffect } from "react";
-import axios from "axios";
+import client from "../api/client";
 
 const API_BASE_URL = "http://localhost:8081";
 
@@ -16,14 +16,9 @@ export const ExpenseProvider = ({ children }) => {
   const fetchExpensesFromBackend = useCallback(async (uname, categoriesObj) => {
     setError(null);
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/expenses?username=${uname}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await client.get(`/expenses`, {
+        params: { username: uname },
+      });
       console.log("Expenses response:", response.data);
       if (response.data) {
         const allExpenses = [];
@@ -119,14 +114,9 @@ export const ExpenseProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/users?username=${uname}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await client.get(`/users`, {
+          params: { username: uname },
+        });
         console.log("User response data:", response.data);
         if (response.data && response.data.categories) {
           const categoriesObj = {};
@@ -174,16 +164,10 @@ export const ExpenseProvider = ({ children }) => {
     async (name) => {
       if (!username) return;
       try {
-        await axios.post(
-          `${API_BASE_URL}/categories/category?username=${username}&category=${encodeURIComponent(
-            name
-          )}`,
+        await client.post(
+          `/categories/category`,
           {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
+          { params: { username, category: name } }
         );
         await fetchUserAndCategories(username);
       } catch (err) {
@@ -198,16 +182,9 @@ export const ExpenseProvider = ({ children }) => {
     async (categoryName) => {
       if (!username) return;
       try {
-        await axios.delete(
-          `${API_BASE_URL}/categories/category?username=${username}&category=${encodeURIComponent(
-            categoryName
-          )}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        await client.delete(`/categories/category`, {
+          params: { username, category: categoryName },
+        });
         await fetchUserAndCategories(username);
       } catch (err) {
         console.error("Error deleting category:", err);
@@ -231,21 +208,13 @@ export const ExpenseProvider = ({ children }) => {
           expenseDate = new Date();
         }
 
-        await axios.post(
-          `${API_BASE_URL}/expenses`,
-          {
-            username,
-            category,
-            amount: parseFloat(amount),
-            description,
-            date: expenseDate.toISOString(),
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        await client.post(`/expenses`, {
+          username,
+          category,
+          amount: parseFloat(amount),
+          description,
+          date: expenseDate.toISOString(),
+        });
         await fetchUserAndCategories(username);
       } catch (err) {
         console.error("Error adding expense:", err);
@@ -259,14 +228,9 @@ export const ExpenseProvider = ({ children }) => {
     async (expenseId) => {
       if (!username) return;
       try {
-        await axios.delete(
-          `${API_BASE_URL}/expenses?expenseId=${expenseId}&username=${username}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        await client.delete(`/expenses`, {
+          params: { expenseId, username },
+        });
         await fetchUserAndCategories(username);
       } catch (err) {
         console.error("Error deleting expense:", err);
@@ -306,15 +270,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const logout = useCallback(async () => {
     try {
-      await axios.post(
-        `${API_BASE_URL}/auth/logout`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      await client.post(`/auth/logout`, {});
     } catch (err) {
       console.error("Error logging out:", err);
     } finally {

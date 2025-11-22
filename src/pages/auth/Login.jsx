@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import client from "../../api/client";
 import { useExpense } from "../../hooks/useExpense";
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.put("http://localhost:8081/auth/login", {
+      const response = await client.put("/auth/login", {
         username,
         password,
       });

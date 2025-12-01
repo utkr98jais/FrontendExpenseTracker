@@ -1,7 +1,7 @@
 import React, { createContext, useState, useCallback, useEffect } from "react";
 import client from "../api/client";
 
-const API_BASE_URL = "http://localhost:8081";
+const API_BASE_URL = "https://backendexpensetracker-ex5v.onrender.com";
 
 export const ExpenseContext = createContext();
 
